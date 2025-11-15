@@ -10,23 +10,44 @@
  * CORE WIDGET CONTAINER AND TOGGLE
  * ========================================================================= */
 .activity-tracker-widget {
-    /* Main container, must exist in the DOM on every page load. */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
 }
 
 /* The button that, when clicked, toggles the visibility of the timeline. */
 .activity-tracker-button {
-    /* Style for the button (e.g., fixed position, size) */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #073f1b;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
+.activity-tracker-button:hover {
+    background-color: #0056b3;
+}/*add hover effect*/
 
 /* The main timeline pane (the <aside> element). */
 .activity-tracker-timeline {
-    /* POSITIONING: Must be fixed/absolute to overlay the page. */
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 400px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: none; /* Hidden by default, shown when expanded */
 }
 
 /* MANDATORY FOR TOGGLE: This class must be applied to .activity-tracker-timeline
  * when the user clicks the .activity-tracker-button.
  */
 .activity-tracker-timeline.expanded {
+     display: block;
 }
 
 /* =========================================================================
@@ -37,10 +58,14 @@
  * These two properties are required by the specification's Playwright tests.
  */
 .timeline-content {
+     overflow-y: auto;
+    max-height: 350px;
+    padding: 15px;
 }
 
 /* The wrapper that contains the timeline entries (to be rendered by JS). */
 .timeline-wrapper {
+    position: relative;
 }
 
 
@@ -50,17 +75,29 @@
 
 /* Base style for every history item rendered by JavaScript. */
 .timeline-item {
+     margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
 }
 
 .timeline-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /* MANDATORY: Visual marker for page view event */
 .timeline-item.pageview::before {
+    content: '●';
+    color: #28a745;
+    margin-right: 8px;
 }
 
 /* MANDATORY: Visual marker for user interaction events (click, form submit) */
 .timeline-item.interaction::before {
+    content: '●';
+    color: #007bff;
+    margin-right: 8px;
 }
 
 /* =========================================================================
@@ -69,12 +106,26 @@
 
 /* Header contains Session ID and Start Time. Sticky position recommended. */
 .timeline-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    color: white;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
 }
 
 /* Container for the four required session statistics. */
 .session-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
 }
 
 /* Each individual statistic entry (e.g., Pages Viewed). */
 .session-stats .stat {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
